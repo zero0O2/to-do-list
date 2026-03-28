@@ -1,0 +1,54 @@
+@import "tailwindcss";
+@font-face {
+    font-family: "Altone";
+    src: url("/fonts/Altone Trial-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: "Resolve";
+    src: url("./fonts/Resolve-Light.otf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+:root{
+    --cor1:#260801;
+    --cor2:#73534C;
+    --cor3:#BFBFBF;
+    --cor4:#A6A6A6;
+    --cor5:#0D0D0D;
+    
+    --text:#c4c4c4;
+    --text2:#3e3e3e;
+    --white:#fff;
+    --black:#000;
+    --sombra:#0000004f;
+
+}
+
+
+/* Largura da barra */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Fundo da barra */
+::-webkit-scrollbar-track {
+  background: var(--cor5);
+}
+
+/* A "bolinha" que desliza */
+::-webkit-scrollbar-thumb {
+  background: var(--cor2);
+}
+
+/* Quando passa o mouse por cima */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--cor3);
+}
+
+body{
+    font-family: Altone,sans-serif;
+    background-image:linear-gradient(to right , white , #BFBFBF );
+}
