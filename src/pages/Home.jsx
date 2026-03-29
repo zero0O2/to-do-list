@@ -24,11 +24,7 @@ const Home = () => {
                     <h1 className="text-[40px]">Tarefas</h1>
                     <div className="grid grid-cols-[repeat(auto-fit,minmax(330px,1fr))] gap-[10px] ">
 
-                        {
-                            arrayTarefas.map((e,index)=>(
-                                <Cards key={index} e={e}/>
-                            ))
-                        }
+                        
 
 
                     </div>
