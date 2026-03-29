@@ -22,7 +22,7 @@ const Home = () => {
 
             <div ref={main} className="ml-[600px] w-[100%] flex flex-col h-[100dvh] gap-[10px] p-[20px] overflow-y-scroll">
                     <h1 className="text-[40px]">Tarefas</h1>
-                    <div className="grid grid-cols-[repeat(auto-fit,minmax(330px,1fr))] gap-[10px] ">
+                    <div className="columns-[300px] space-y-[10px] gap-[10px] ">
 
                         {
                             arrayTarefas.map((e,index)=>(

@@ -7,7 +7,7 @@ import FormUpdate from "./FormUpdate";
 const Cards = ({tarefa, setArrayTarefas}) => {
 
     const [formUpdate,setformUpdate] = useState(false)
-    const [tarefasUpdate,setTarefasUpdate] = useState({})
+    // const [tarefasUpdate,setTarefasUpdate] = useState({})
 
 
     const Delete = () => {
@@ -18,15 +18,12 @@ const Cards = ({tarefa, setArrayTarefas}) => {
         // setArrayTarefas(prev => [...prev,tarefasUpdate])
         setformUpdate(true)
 
-
-
-
     }
 
 
     return (
         <>
-            <div className="w-full min-h-[120px] relative flex justify-between flex-col  rounded-[4px] overflow-hidden text-[var(--text1)]">
+            <div className="break-inside-avoid w-full min-h-[120px] relative flex justify-between flex-col  rounded-[4px] overflow-hidden text-[var(--text1)]">
                 <div className="absolute bg-linear-to-bl to-[var(--cor4)] from-[var(--cor2)] w-[100%] h-[100%] opacity-60 "></div>
                 <div className="flex justify-between text-[var(--text2)] gap-[20px] h-[100%] flex-col z-20 p-[10px_20px]">
                     
@@ -72,7 +69,7 @@ const Cards = ({tarefa, setArrayTarefas}) => {
                     
                 </div>
                 {
-                    formUpdate && <FormUpdate setformUpdate={setformUpdate} tarefa={tarefa}/>
+                    formUpdate && <FormUpdate e={tarefa} setformUpdate={setformUpdate}/>
                 }
                 
             </div>
