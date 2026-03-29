@@ -1,8 +1,28 @@
 import { MdOutlineEdit } from "react-icons/md";
 import { GoTrash } from "react-icons/go";
 import { FaCheck } from "react-icons/fa6";
+import { useState } from "react";
+import FormUpdate from "./FormUpdate";
 
-const Cards = ({e}) => {
+const Cards = ({tarefa, setArrayTarefas}) => {
+
+    const [formUpdate,setformUpdate] = useState(false)
+    const [tarefasUpdate,setTarefasUpdate] = useState({})
+
+
+    const Delete = () => {
+        setArrayTarefas(prev => prev.filter(e => e != tarefa))
+    }
+    
+    const Update = () => {
+        // setArrayTarefas(prev => [...prev,tarefasUpdate])
+        setformUpdate(true)
+
+
+
+
+    }
+
 
     return (
         <>
@@ -13,18 +33,18 @@ const Cards = ({e}) => {
                     <div className="flex flex-col gap-[10px]">
 
                         <div className="flex justify-between text-[var(--cor1)]">
-                            <h1 className="text-[20px] font-medium">{e.tipo}</h1>
+                            <h1 className="text-[20px] font-medium">{tarefa.tipo}</h1>
                             {
-                                e.prazo && <p className="font-[Resolve]">Prazo: {e.prazo}</p>
+                                tarefa.prazo && <p className="font-[Resolve]">Prazo: {tarefa.prazo}</p>
                             }
                             
                         </div>
 
-                        <p className="text-[18px]">{e.tarefa}</p>
+                        <p className="text-[18px]">{tarefa.tarefa}</p>
 
                         <div className="flex gap-[5px] items-center">
                             <p>Importancia:</p>
-                            <div className={`h-[16px] w-[16px] rounded-full ${e.nivel == "alto" ? "bg-red-800" : e.nivel == "medio" ? "bg-yellow-600" : "bg-green-800" }`}></div>
+                            <div className={`h-[16px] w-[16px] rounded-full ${tarefa.nivel == "alto" ? "bg-red-800" : tarefa.nivel == "medio" ? "bg-yellow-600" : "bg-green-800" }`}></div>
                         </div>
 
                     </div>
@@ -32,12 +52,12 @@ const Cards = ({e}) => {
                     <div className="flex justify-between text-[var(--cor2)] items-center">
                         <div className="flex justify-between gap-[10px] text-[var(--cor2)] items-center">
 
-                            <button className="relative text-[var(--cor3)] hover:bg-[var(--cor2)] duration-200  h-[26px] cursor-pointer flex justify-center items-center w-[90px] p-[2px] ">
+                            <button onClick={Delete} className="relative text-[var(--cor3)] hover:bg-[var(--cor2)] duration-200  h-[26px] cursor-pointer flex justify-center items-center w-[90px] p-[2px] ">
                                 <div className="absolute h-[100%] w-[100%] opacity-70 bg-[var(--cor1)]"></div>
                                 <p className="z-20"><GoTrash /></p>
                             </button>
 
-                            <button className="relative text-[var(--cor3)] h-[26px] hover:bg-[var(--cor2)] duration-200  cursor-pointer flex justify-center items-center w-[90px] p-[2px] ">
+                            <button onClick={Update} className="relative text-[var(--cor3)] h-[26px] hover:bg-[var(--cor2)] duration-200  cursor-pointer flex justify-center items-center w-[90px] p-[2px] ">
                                 <div className="absolute h-[100%] w-[100%] opacity-70 bg-[var(--cor1)]"></div>
                                 <p className="z-20"><MdOutlineEdit/></p>
                             </button>
@@ -51,6 +71,10 @@ const Cards = ({e}) => {
                     </div>
                     
                 </div>
+                {
+                    formUpdate && <FormUpdate setformUpdate={setformUpdate} tarefa={tarefa}/>
+                }
+                
             </div>
         </>
     )

@@ -26,7 +26,7 @@ const Home = () => {
 
                         {
                             arrayTarefas.map((e,index)=>(
-                                <Cards key={index} e={e}/>
+                                <Cards setArrayTarefas={setArrayTarefas} key={index} tarefa={e}/>
                             ))
                         }
 
