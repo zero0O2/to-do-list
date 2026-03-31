@@ -1,78 +1,127 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
-const FormUpdate = ({setformUpdate,e}) => {
+const FormUpdate = ({setformUpdate, e, Update, asideActive}) => {
     const types = [
         "Trabalho",
         "Pessoal",
         "Estudos"
     ]
-    
+
     const [tarefa, setTarefa] = useState(e.tarefa)
     const [prazo, setPrazo] = useState(e.prazo)
     const [tipo, setTipo] = useState(e.tipo)
     const [nivel, setNivel] = useState(e.nivel)
 
     const [tipoBar, setTipoBar] = useState(false)
+    const [submit, setSubmit] = useState(false)
+
+    const [erros, setErros] = useState([])
 
     const InputTarefa = (event) => {
         const value = event.target.value
         setTarefa(value)
 
-    }
+        if(!submit) return
 
+        setErros(prev => prev.filter(e => e.erro != "tarefa" ))
+    }
+    
     const InputPrazo = (event) => {
         const value = event.target.value
         setPrazo(value)
-
     }
-
+    
     const InputTipo = (types) => {
         setTipoBar(false)
         setTipo(types)
         
+        if(!submit) return
+    
+        setErros(prev => prev.filter(e => e.erro != "tipo" ))
     }
-
+    
     const InputNivel = (nivel) => {
         setNivel(nivel)
         
+        if(!submit) return
+    
+        setErros(prev => prev.filter(e => e.erro != "nivel" ))
     }
+
+    const ErrorPull = () => {
+        const erros = []
+        setErros([])
+
+        if(!tarefa){
+            erros.push({erro:"tarefa",msg:"Escreva uma tarefa para atualizala."})
+        }
+        if(!types.includes(tipo)){
+            erros.push({erro:"tipo",msg:"Selecione um tipo para continuar."})
+        }
+        if(!nivel){
+            erros.push({erro:"nivel",msg:"Informar sua prioridade é obrigatorio."})
+        }
+
+        setErros(erros)
+        return erros
+    }
+
 
     const Submit = (event) =>{
         event.preventDefault()
-        
+        setSubmit(true)
 
-        console.log({
+        const arrayErros = ErrorPull()
+
+        if(arrayErros.length > 0) return
+
+        const tarefaUpdate = {
             tarefa,
             prazo,
             tipo,
-            nivel
-        })
+            nivel,
+        }
+
+        Update(tarefaUpdate)
+ 
     }
+
+    useEffect(()=>{
+        if(asideActive){
+            setformUpdate(false)
+        }
+    },[asideActive])
 
 
     return(
         <>
-            <div onClick={ () => setformUpdate(false) } className="flex fixed top-0 left-0 justify-center items-center z-[30] w-[100dvw] h-[100dvh] backdrop-blur-[20px]">
-                <div onClick={(event)=> event.stopPropagation() } className=" w-[600px] text-[var(--text2)] flex flex-col gap-[10px] h-[520px] bg-linear-40 from-[var(--cor4)] to-[var(--cor3)] rounded-[10px] backdrop-opacity-25 p-[30px_20px] shadow-[0_0_30px_5px_#73534C]">
+            <div onClick={ () =>setformUpdate(false) } className="flex fixed top-0 left-0 justify-center items-center z-[30] w-[100dvw] h-[100dvh] backdrop-blur-[20px]">
+                <div onClick={(event)=> event.stopPropagation() } className=" w-[600px] text-[var(--text2)] h-[530px] flex flex-col gap-[10px]  bg-linear-40 to-[var(--white)] from-[var(--cor3)] rounded-[10px] backdrop-opacity-25 p-[30px_20px] shadow-[0_0_30px_5px_#73534C]">
 
                     <form className="flex flex-col items-center h-[100%] justify-between" onSubmit={Submit}>
                         {/* TAREFA */}
-                        <div className="flex flex-col w-[100%] gap-[15px]">
-                        <div className="flex flex-col w-[100%] gap-[5px]">
+                        <div className="flex flex-col w-[100%] gap-[20px]">
+                        <div className="flex relative justify-start flex-col w-[100%] gap-[5px]">
                             <h1 className="text-[22px] text-[var(--black)]">Tarefa</h1>
                             <input onChange={InputTarefa} value={tarefa} className="outline-none border-[2px] border-[var(--cor1)] w-[100%] rounded-[10px] h-[45px] p-[10px]" type="text" />
+                            <p className=" absolute bottom-[-20px] text-[red] animate-pulse text-[14px]">{
+                                erros.map((e) => (
+                                    e.erro == "tarefa" && e.msg 
+                                ))
+                            }</p>
                         </div>
 
                         {/* PRAZO */}
                         <div className="flex flex-col w-[100%] gap-[5px]">
                             <h1 className="text-[22px] text-[var(--black)]">Prazo</h1>
                             <input onChange={InputPrazo} value={prazo} className=" font-[Resolve] outline-none border-[2px] border-[var(--cor1)] w-[100%] rounded-[10px] h-[45px] p-[10px]" type="date" />
+                            
                         </div>
 
                         <div className="flex w-[100%] justify-center ">
                             {/* TIPO */}
-                            <div className="flex w-[40%] flex-col gap-[5px]">
+                            <div className="flex w-[40%] relative flex-col gap-[5px]">
                                 <h1 className="text-[22px] text-[var(--black)]">Tipo</h1>
                                 <div onClick={()=>{setTipoBar(prev => !prev)}} className="flex w-[100%] text-[18px] cursor-pointer justify-center items-center relative rounded-[6px] border-[var(--cor1)] border-[2px] flex-col  ">
                                     <div className="h-[40px] flex justify-between px-[10px] relative w-[100%] items-center">
@@ -88,15 +137,20 @@ const FormUpdate = ({setformUpdate,e}) => {
                                                 InputTipo(types)
                                                 event.stopPropagation()
                                                 
-                                            }}  className="border-2 border-[var(--cor4)] text-center w-[100%]">{types}</p>
+                                            }}  className="border-2 border-[var(--cor2)] text-center w-[100%]">{types}</p>
                                         ))}
                                     </div>
 
+                                <p className=" absolute bottom-[-42px] text-[red] animate-pulse text-[14px]">{
+                                    erros.map((e) => (
+                                        e.erro == "tipo" && e.msg 
+                                    ))
+                                }</p>
                                 </div>
                             </div>
 
                             {/* PRIORIDADE */}
-                            <div className="w-[60%] pt-[10px] flex flex-col items-center gap-[10px]">
+                            <div className="w-[60%] pt-[10px] relative flex flex-col items-center gap-[10px]">
                                 <h1 className="text-[22px] text-[var(--black)]">Prioridade</h1>
                                 <div className="flex h-[40px] justify-around relative items-center gap-[10px] text-[16px]">
         
@@ -124,12 +178,17 @@ const FormUpdate = ({setformUpdate,e}) => {
                                         </label>
                                     </div>
                                 </div>
+                                <p className=" absolute bottom-[-15px] text-[red] animate-pulse text-[14px]">{
+                                    erros.map((e) => (
+                                        e.erro == "nivel" && e.msg 
+                                    ))
+                                }</p>
                             </div>
 
                         </div>
                         </div>
 
-                        <button className="bg-[var(--cor1)] w-[200px] h-[40px] text-[var(--text)] rounded-[10px]" type="submit">Atualizar</button>
+                        <button className="bg-[var(--cor1)] w-[200px] h-[40px] text-[var(--text)] mt-[0px] cursor-pointer rounded-[10px]" type="submit">Atualizar</button>
 
                     </form>
 

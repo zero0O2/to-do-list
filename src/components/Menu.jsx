@@ -9,10 +9,11 @@ import { CiBoxList } from "react-icons/ci";
 const Menu = ({asideActive, setAsideActive, main, setArrayTarefas}) => {
     const aside = useRef()
 
-    // Efeito de animacao do Campo Menu
+    // Efeito de animacao do Campo 
 
     const AsideDisplay = () => {
         setAsideActive(prev => !prev)
+
         gsap.to(aside.current,{
             x: !asideActive ? "0%" : "-87%",
             duration:1.4,
@@ -38,7 +39,7 @@ const Menu = ({asideActive, setAsideActive, main, setArrayTarefas}) => {
 
 
     return (
-            <div ref={aside} className=" absolute left-0 top-0 justify-between bg-[var(--cor5)] text-[var(--text)] gap-[20px] p-[10px_80px_30px_30px] flex flex-col items-center shadow-[#0000004f] shadow-[5px_5px_20px] min-w-[600px] h-[100dvh]">
+            <div ref={aside} className="absolute left-0 top-0 justify-between bg-[var(--cor5)] text-[var(--text)] gap-[20px] p-[10px_80px_30px_30px] flex flex-col items-center shadow-[#0000004f] shadow-[5px_5px_20px] min-w-[600px] h-[100dvh]">
                 <div className="flex flex-col gap-[20px] h-[100%] w-[100%] justify-center items-center"> 
                     <h1 className="text-[50px] text-[var(--white)] text-nowrap">To do List</h1>
                     <div className=" h-[100%] gap-[45px] p-[20px_0] justify-center items-center flex flex-col w-[100%] rounded-[20px]">
@@ -46,7 +47,7 @@ const Menu = ({asideActive, setAsideActive, main, setArrayTarefas}) => {
                         <Form setArrayTarefas={setArrayTarefas} />
                     </div>
                 </div>
-                <div onClick={AsideDisplay} className=" text-[30px] absolute flex rounded-full justify-center items-center right-[15px] cursor-pointer top-[50%] w-[50px] h-[50px] border-2">
+                <div onClick={AsideDisplay} className=" max-[1100px]:hidden text-[30px] absolute flex rounded-full justify-center items-center right-[15px] cursor-pointer top-[50%] w-[50px] h-[50px] border-2">
                     {
                         asideActive ? <IoIosArrowBack /> : <IoIosArrowForward />
                     }
