@@ -4,7 +4,7 @@ import Form from "../components/Form.jsx"
 import { CiBoxList } from "react-icons/ci";
 import { IoCloseSharp } from "react-icons/io5";
 
-const MenuMobile = ({setArrayTarefas, setDivActive, setAsideActive,asideActive}) => {
+const MenuMobile = ({setArrayTarefas, setAsideActive,asideActive}) => {
 
     return (
         <>
@@ -15,7 +15,6 @@ const MenuMobile = ({setArrayTarefas, setDivActive, setAsideActive,asideActive})
                     </div>
                     <div onClick={()=>{
                             setAsideActive(prev => !prev)
-                            setDivActive(false)
                         }} className="w-[200px] flex justify-center items-center rounded-[14px] cursor-pointer h-[40px] bg-[var(--cor2)]">
                         {asideActive ? <p className={`text-[20px] transition-all duration-300 ${asideActive ? "rotate-90" : ""}`}> < IoCloseSharp/> </p> : <p>Criar nova tarefa</p>}
                     </div>
