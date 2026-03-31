@@ -84,7 +84,7 @@ const Cards = ({tarefa, setArrayTarefas, isMobile,asideActive }) => {
                 </div>
 
                 {
-                    formUpdate  && <FormUpdate e={tarefa} asideActive={asideActive} Update={Update} setformUpdate={setformUpdate}/>
+                    formUpdate  && <FormUpdate e={tarefa} asideActive={asideActive} mobile={isMobile} Update={Update} setformUpdate={setformUpdate}/>
                 }
                 
             </div>

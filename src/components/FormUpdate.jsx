@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
-const FormUpdate = ({setformUpdate, e, Update, asideActive}) => {
+const FormUpdate = ({setformUpdate, e, Update, asideActive,mobile}) => {
     const types = [
         "Trabalho",
         "Pessoal",
@@ -96,8 +96,8 @@ const FormUpdate = ({setformUpdate, e, Update, asideActive}) => {
 
     return(
         <>
-            <div onClick={ () =>setformUpdate(false) } className="flex fixed top-0 left-0 justify-center items-center z-[30] w-[100dvw] h-[100dvh] backdrop-blur-[20px]">
-                <div onClick={(event)=> event.stopPropagation() } className=" w-[600px] text-[var(--text2)] h-[530px] flex flex-col gap-[10px]  bg-linear-40 to-[var(--white)] from-[var(--cor3)] rounded-[10px] backdrop-opacity-25 p-[30px_20px] shadow-[0_0_30px_5px_#73534C]">
+            <div onClick={ () =>setformUpdate(false) } className={` ${mobile ? "px-[10px]" : "" } flex fixed top-0 left-0 justify-center items-center z-[30] w-[100dvw] h-[100dvh] backdrop-blur-[20px]`}>
+                <div onClick={(event)=> event.stopPropagation() } className={` w-[600px] text-[var(--text2)] h-[530px] flex flex-col gap-[10px]  bg-linear-40 to-[var(--white)] from-[var(--cor3)] rounded-[10px] backdrop-opacity-25 p-[30px_20px] shadow-[0_0_30px_5px_#73534C]`}>
 
                     <form className="flex flex-col items-center h-[100%] justify-between" onSubmit={Submit}>
                         {/* TAREFA */}
@@ -119,9 +119,9 @@ const FormUpdate = ({setformUpdate, e, Update, asideActive}) => {
                             
                         </div>
 
-                        <div className="flex w-[100%] justify-center ">
+                        <div className={`${mobile ? "flex-col" : ""} flex w-[100%] justify-center`}>
                             {/* TIPO */}
-                            <div className="flex w-[40%] relative flex-col gap-[5px]">
+                            <div className={`${mobile ? "w-[100%]" : "w-[40%]"} flex  relative flex-col gap-[5px]`}>
                                 <h1 className="text-[22px] text-[var(--black)]">Tipo</h1>
                                 <div onClick={()=>{setTipoBar(prev => !prev)}} className="flex w-[100%] text-[18px] cursor-pointer justify-center items-center relative rounded-[6px] border-[var(--cor1)] border-[2px] flex-col  ">
                                     <div className="h-[40px] flex justify-between px-[10px] relative w-[100%] items-center">
@@ -150,7 +150,7 @@ const FormUpdate = ({setformUpdate, e, Update, asideActive}) => {
                             </div>
 
                             {/* PRIORIDADE */}
-                            <div className="w-[60%] pt-[10px] relative flex flex-col items-center gap-[10px]">
+                            <div className={`${mobile ? "w-[100%]" : "w-[60%]"} pt-[10px] relative flex flex-col items-center gap-[10px]`}>
                                 <h1 className="text-[22px] text-[var(--black)]">Prioridade</h1>
                                 <div className="flex h-[40px] justify-around relative items-center gap-[10px] text-[16px]">
         
